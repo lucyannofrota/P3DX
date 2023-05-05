@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- ****** SENSOR CONFIGURATION ****** -->
+    <arg name="laser_range_finder"	default="true"/>
+    <arg name="camera"			default="true"/>
+
+<!-- ****** TYPE OF ROBOT ****** -->
+   <arg name="robot_type"		default="P3DX2"/>
+    <arg name="urdf"			default="true"/>
+
+
+<master auto="start"/>
+
+
+<!-- HOKUYO URG-04LX LASER RANGE FINDER -->
+<group if="$(arg laser_range_finder)">
+   <include file="$(find p3dx_bringup)/launch/hokuyo_LRF.launch">
+     <arg name="robot_type"         value="$(arg robot_type)" />
+     <arg name="camera"   value="$(arg camera)" />
+   </include>
+</group>
+
+
+</launch>
+

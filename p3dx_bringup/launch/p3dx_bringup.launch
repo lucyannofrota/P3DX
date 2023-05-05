@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- ****** ROBOT CONFIGURATION ****** -->
+
+    <arg name="robot_type"		default="P3DX2"/>
+    <arg name="urdf"			default="true"/>
+    <arg name="laser_range_finder"	default="true"/>
+
+<master auto="start"/>
+
+  <group>
+    <!-- Pioneer P3-DX2 -->
+    <group if="$(eval robot_type == 'P3DX2')" >
+      <node pkg="rosaria" type="RosAria" name="ROSARIA">
+        <param name="base_link_frame" value="base_link" />
+            <param name="odom_frame" value="odom" />
+        <remap from="ROSARIA/cmd_vel" to="cmd_vel"/>
+        <remap from="ROSARIA/pose" to="odom"/>
+        <remap from="ROSARIA/sonar" to="sonar"/>
+        <remap from="ROSARIA/motors_state" to="motors_state"/>
+        <remap from="ROSARIA/enable_motors" to="enable_motors"/>
+        <remap from="ROSARIA/disable_motors" to="disable_motors"/>
+        <!--<param name="port" value="/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0" />-->
+        <!--<param name="port" value="/dev/ttyUSB0" />-->
+      </node>
+
+      <node if="$(eval robot_type == 'P3DX2')" pkg="tf" type="static_transform_publisher" name="base_link_to_sonar"
+        args="0.0 0.0 0.22 0.0 0.0 0.0 1.0 base_link sonar 100" />
+      <!-- <node if="$(eval robot_type == 'P3DX2')" pkg="tf" type="static_transform_publisher" name="lms100_to_laser"
+        args="0.0 0.0 0.0 0.0 0.0 0.0 1.0 lms100 laser 100" /> -->
+    </group>
+
+
+  </group>
+
+  <group if="$(arg urdf)">
+    <include file="$(find p3dx_description_ros)/launch/p3dx_description_ros1_launch.launch">
+      <arg name="tf_prefix" value=""/>
+    </include>
+  </group>
+
+  <!-- EMERGENCY STOP NODE -->
+  <node pkg="estop" type="estop" name="estop" output="screen"/>
+
+  <!-- SENSORS -->
+  <include file="$(find p3dx_bringup)/launch/sensors.launch">
+      <arg name="laser_range_finder"	default="$(arg laser_range_finder)"/>
+      <arg name="robot_type"     value="$(arg robot_type)"/>
+  </include>
+
+</launch>
+
