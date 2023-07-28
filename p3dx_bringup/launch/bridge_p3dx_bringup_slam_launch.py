@@ -55,17 +55,17 @@ def generate_launch_description():
 		}.items(),
 	)
 
-	launch_rviz = launch_ros.actions.Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        arguments=['-d' + 
-		   PathJoinSubstitution([
-				FindPackageShare('p3dx_bringup'),
-				'rviz/p3dx.rviz'
-			]).perform(LaunchContext())
-		]
-    )
+	# launch_rviz = launch_ros.actions.Node(
+    #     package="rviz2",
+    #     executable="rviz2",
+    #     name="rviz2",
+    #     arguments=['-d' + 
+	# 	   PathJoinSubstitution([
+	# 			FindPackageShare('p3dx_bringup'),
+	# 			'rviz/p3dx.rviz'
+	# 		]).perform(LaunchContext())
+	# 	]
+    # )
 
 	launch_nav2 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -93,11 +93,12 @@ def generate_launch_description():
         # /workspace/src/P3DX/p3dx_bringup/config/slam_toobox_config.yamlle:=/workspace/src/P3DX/p3dx_bringup/config/slam
     )
 
+
 	return LaunchDescription([
 		declare_urdf_launch_arg,
 		declare_use_sim_time_launch_arg,
 		launch_description,
-		launch_slam,
-		# launch_nav2,
-		launch_rviz
+        launch_slam
+        # launch_nav2,
+        # launch_rviz,
 	])
