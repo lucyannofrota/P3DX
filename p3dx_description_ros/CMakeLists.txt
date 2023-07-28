@@ -40,7 +40,7 @@ else()
   add_compile_options(-Wall -Wextra -Wpedantic)
   endif()
 
-  install(DIRECTORY meshes rviz urdf launch
+  install(DIRECTORY meshes urdf launch
     DESTINATION share/${PROJECT_NAME}
   )
 
