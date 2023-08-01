@@ -46,7 +46,7 @@ else()
   add_compile_options(-Wall -Wextra -Wpedantic)
   endif()
 
-  install(DIRECTORY rviz launch
+  install(DIRECTORY rviz launch params
     DESTINATION share/${PROJECT_NAME}
   )
 
