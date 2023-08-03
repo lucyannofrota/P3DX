@@ -90,19 +90,19 @@ def generate_launch_description():
         'autostart', default_value='true',
         description='Automatically startup the nav2 stack')
     
-    # # launch description
-    # launch_description = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(
-    #         PathJoinSubstitution([
-    #             FindPackageShare('p3dx_description_ros'),
-    #             'launch/p3dx_description_ros2_launch.py'
-    #         ]).perform(LaunchContext())
-    #     ),
-    #     launch_arguments={
-    #         'urdf': urdf,
-    #         'use_sim_time': use_sim_time
-    #     }.items(),
-    # )
+    # launch description
+    launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([
+                FindPackageShare('p3dx_description_ros'),
+                'launch/p3dx_description_ros2_launch.py'
+            ]).perform(LaunchContext())
+        ),
+        launch_arguments={
+            'urdf': urdf,
+            'use_sim_time': use_sim_time
+        }.items(),
+    )
 
     # Specify the actions
     bringup_cmd_group = GroupAction([
@@ -161,7 +161,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_urdf_launch_arg,
-        # launch_description,
+        launch_description,
         stdout_linebuf_envvar,
         declare_namespace_cmd,
         # declare_use_namespace_cmd,
