@@ -34,11 +34,11 @@
 
   </group>
 
-  <group if="$(arg urdf)">
+  <!-- <group if="$(arg urdf)">
     <include file="$(find p3dx_description_ros)/launch/p3dx_description_ros1_launch.launch">
       <arg name="tf_prefix" value=""/>
     </include>
-  </group>
+  </group> -->
 
   <!-- EMERGENCY STOP NODE -->
   <node pkg="estop" type="estop" name="estop" output="screen"/>
