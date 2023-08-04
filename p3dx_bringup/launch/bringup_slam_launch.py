@@ -160,16 +160,16 @@ def generate_launch_description():
     ])
 
     return LaunchDescription([
-        declare_urdf_launch_arg,
-        launch_description,
-        stdout_linebuf_envvar,
-        declare_namespace_cmd,
-        # declare_use_namespace_cmd,
-        # declare_slam_cmd,
-        declare_use_sim_time_cmd,
+	declare_use_sim_time_cmd,
         declare_params_file_cmd,
         declare_bt_xml_cmd,
         declare_autostart_cmd,
+    	declare_namespace_cmd,
+        declare_urdf_launch_arg,
+        launch_description,
+        stdout_linebuf_envvar,
+        # declare_use_namespace_cmd,
+        # declare_slam_cmd,
         # slam_launch,
         # nav2_launch,
         bringup_cmd_group
